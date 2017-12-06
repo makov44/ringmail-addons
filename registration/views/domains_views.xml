@@ -18,7 +18,7 @@
             <field name="arch" type="xml">
                 <form string="Domains">
                     <header>
-                        <button string="Confirm" type="object" name="button_confirm_domain"/>
+                        <button string="Confirm" type="object" name="confirm_domain"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -28,6 +28,25 @@
                                 <field name="name"/>
                             </h1>
                         </div>
+                        <notebook>
+                            <page string="Verify Domain Name" attrs="{'invisible':[('state', '=', 'done')]}">
+                                <group  string="Verify domain name using a DNS record">
+                                     <label string="Create a TXT record that contains exactly this value:" />
+                                     <field name="txt_record" nolabel="1" />
+                                     <label string="Additional Instructions:"></label>
+                                     <div>
+                                        <a href="https://www.godaddy.com/help/manage-dns-zone-files-680" target="_blank"
+                                           class="btn-link pull-left">GoDaddy: Adding or Editing TXT Records
+                                        </a>
+                                    </div>
+                                </group>
+                                <group string="Or, verify domain name using a web page">
+                                    <lable string="Install this HTML page within the root ('/') directory of your web site"></lable>
+                                     <field name="page" filename="page_fname" widget="binary"/>
+                                     <field name="page_fname" invisible="1"/>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
