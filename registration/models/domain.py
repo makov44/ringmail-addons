@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 import random
 import base64
 import dns.resolver
@@ -27,14 +28,15 @@ class Domain(models.Model):
     def confirm_domain(self):
         for domain in self:
             for txt_record in dns.resolver.query(domain.name, 'TXT'):
-                if txt_record.to_text() == txt_record:
+                if txt_record.to_text().replace('"', '') == domain.txt_record:
                     self.state = 'done'
                     return
-            r = requests.get(domain.name + '/' + domain.page_fname)
+            r = requests.get('http://' + domain.name + '/' + domain.page_fname)
             if r and r.txt:
                 if r.txt == txt_record:
                     self.state = 'done'
                     return
+        raise UserError("Can not confirm domain.")
 
     @api.model
     def create(self, vals):
