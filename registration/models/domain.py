@@ -11,6 +11,38 @@ def random_token():
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     return ''.join(random.SystemRandom().choice(chars) for _ in range(20))
 
+INSTRUCTIONS = """
+<div>
+   <div>
+      <h2>Verify domain:</h2>
+   </div>
+   <div>
+      <p>1. Verify using a DNS record</p>
+   </div>
+   <div>
+      <p>&nbsp; &nbsp; Create a TXT record that contains exactly this value:
+     </p>
+   </div>
+    <div>
+      <p>&nbsp; &nbsp; %s</p>
+   </div>
+   <div>
+      <p>&nbsp; &nbsp; Additional Instructions:</p>
+   </div>
+   <div>
+      <p>&nbsp; &nbsp;&nbsp;<a href="https://www.godaddy.com/help/manage-dns-zone-files-680" target="_blank" class="btn-link" title="">GoDaddy: Adding or Editing TXT Records
+         &nbsp;</a>
+      </p>
+   </div>
+   <div>
+      <p>2. Verify using a web page</p>
+   </div>
+   <div>
+      <p>&nbsp; &nbsp; Install this HTML page within the root ("/") directory of your web site:</p>
+   </div>
+</div>
+"""
+
 
 class Domain(models.Model):
     _name = 'ringmail_reg.domain'
@@ -20,9 +52,10 @@ class Domain(models.Model):
         ('draft', 'Not Confirmed'),
         ('done', 'Confirmed'),
     ], string='Status', index=True, readonly=True, copy=False, default='draft')
-    txt_record = fields.Char(string='TXT record', readonly=True)
-    page = fields.Binary(string="HTML page", readonly=True)
-    page_fname = fields.Char(string="File name")
+    txt_record = fields.Char(string='TXT record', readonly=True, copy=False)
+    page = fields.Binary(string="HTML page", readonly=True, copy=False)
+    page_fname = fields.Char(string="File name", copy=False)
+    instructions = fields.Html(readonly=True)
 
     @api.multi
     def confirm_domain(self):
@@ -44,4 +77,5 @@ class Domain(models.Model):
         vals['txt_record'] = 'ringmail-domain-verify=' + token
         vals['page_fname'] = 'ringmail_' + token + '.html'
         vals['page'] = base64.encodebytes(str.encode(vals['txt_record']))
+        vals['instructions'] = INSTRUCTIONS % vals['txt_record']
         return super(Domain, self).create(vals)

@@ -1,8 +1,8 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="ringmail_reg_domain_tree">
-            <field name="name">ringmail_reg.domain.tree</field>
-            <field name="model">ringmail_reg.domain</field>
+        <record model="ir.ui.view" id="ringmail_reg_alias_tree">
+            <field name="name">ringmail_reg.alias.tree</field>
+            <field name="model">ringmail_reg.alias</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
@@ -12,14 +12,14 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="ringmail_reg_domain_form">
-            <field name="name">ringmail_reg.domain.form</field>
-            <field name="model">ringmail_reg.domain</field>
+        <record model="ir.ui.view" id="ringmail_reg_alias_form">
+            <field name="name">ringmail_reg.alias.form</field>
+            <field name="model">ringmail_reg.alias</field>
             <field name="priority">10</field>
             <field name="arch" type="xml">
-                <form string="Domains">
+                <form string="Secondary Emails">
                     <header>
-                        <button string="Confirm" type="object" name="confirm_domain"/>
+                        <button string="Send confirmation email" type="object" name="send_confirmation_email"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -29,18 +29,14 @@
                                 <field name="name" attrs="{'readonly':[('state', '=', 'done')]}"/>
                             </h1>
                         </div>
-                        <div string="Verify Domain Name"
-                             attrs="{'invisible':['|',('state', '=', 'done'), ('name', '=', False)]}">
-                            <field name="instructions" widget="html" options="{'style-inline': true}"/>
-                        </div>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="ringmail_reg_action_window_domain">
-            <field name="name">Domains</field>
-            <field name="res_model">ringmail_reg.domain</field>
+        <record model="ir.actions.act_window" id="ringmail_reg_action_window_alias">
+            <field name="name">Secondary Emails</field>
+            <field name="res_model">ringmail_reg.alias</field>
             <field name="view_mode">tree,form</field>
         </record>
     </data>
