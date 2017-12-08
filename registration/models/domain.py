@@ -12,7 +12,7 @@ def random_token():
     return ''.join(random.SystemRandom().choice(chars) for _ in range(20))
 
 INSTRUCTIONS = """
-<div>
+<div style='font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;font-size: 13px;color: #4c4c4c;'>
    <div>
       <h2>Verify domain:</h2>
    </div>

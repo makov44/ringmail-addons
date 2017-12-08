@@ -32,6 +32,8 @@
                         <div string="Verify Domain Name"
                              attrs="{'invisible':['|',('state', '=', 'done'), ('name', '=', False)]}">
                             <field name="instructions" widget="html" options="{'style-inline': true}"/>
+                             <field name="page" filename="page_fname" widget="binary"/>
+                             <div style="padding-left:25px"><field name="page_fname" invisible="1"/></div>
                         </div>
                     </sheet>
                 </form>
