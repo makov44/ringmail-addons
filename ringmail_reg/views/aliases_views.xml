@@ -29,6 +29,12 @@
                                 <field name="name" attrs="{'readonly':[('state', '=', 'done')]}"/>
                             </h1>
                         </div>
+                        <div class="alert alert-success"
+                             attrs="{'invisible':[('state', '!=', 'sent')]}">
+                            <p class="alert alert-success" t-if="message">
+                                Verification email was sent
+                            </p>
+                        </div>
                     </sheet>
                 </form>
             </field>
