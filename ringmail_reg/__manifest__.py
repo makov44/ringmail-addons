@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "ringmail_reg",
+    'name': "Ringmail Registration",
 
     'summary': """
         Domain registration module.""",
@@ -19,15 +19,16 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data/email_templates_data.xml',
         'views/templates.xml',
         'views/domains_views.xml',
         'views/aliases_views.xml',
-        'views/menu_views.xml'
+        'views/menu_views.xml',
 
     ],
     # only loaded in demonstration mode

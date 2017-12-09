@@ -23,7 +23,7 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <div class="oe_title">
+                        <div class="oe_title" style="margin-left:8px">
                             <label for="name" class="oe_edit_only"/>
                             <h1>
                                 <field name="name" attrs="{'readonly':[('state', '=', 'done')]}"/>
@@ -32,8 +32,8 @@
                         <div string="Verify Domain Name"
                              attrs="{'invisible':['|',('state', '=', 'done'), ('name', '=', False)]}">
                             <field name="instructions" widget="html" options="{'style-inline': true}"/>
-                             <field name="page" filename="page_fname" widget="binary"/>
-                             <div style="padding-left:25px"><field name="page_fname" invisible="1"/></div>
+                             <div style="padding-left:25px"><field name="page" filename="page_fname" widget="binary"/></div>
+                             <field name="page_fname" invisible="1"/>
                         </div>
                     </sheet>
                 </form>
